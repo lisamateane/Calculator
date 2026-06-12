@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(185, 123, 177) ;
+            min-height: 100vh;
+        }
+        #display{
+            width: 100%;
+            background-color:  #0f0f1a;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+         #expression {
+            font-size: 13px;
+            color: #9d8fca;       
+            min-height: 18px;      
+        }
+        #result {
+            font-size: 28px;
+            color: #f0e6ff;       
+            font-weight: 500;
+        }
+        #calculator{
+            background-color: #1a1a2e;
+            border-radius: 20px;
+            padding: 25px;
+            width: 276px;
+            height: 405px ;
+        }
+        #keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);  
+            gap: 9px;
+        }
+
+          #keys button {
+            height: 50px;
+            font-size: 18px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-clear{
+            background-color:#3a1a4a;
+            color: #d8a8f0; 
+        }
+        .btn-operator{
+            background-color: #7c3aed;
+            color: white;
+        }
+        .btn-number{
+            background-color: #2a2a45;
+            color: white;
+        }
+        .btn-equals{
+            background-color: #c026d3;
+            color: white;
+        }
+        .btn-zero {
+            grid-column: span 2; 
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <div id="display">
+        <div id="expression"></div>
+        <div id="result">0</div>
+        </div>
+        <div id="keys">
+            <button class="btn-clear" onclick="clearDisplay('C')">C</button>
+             <button class="btn-operator" onclick="appendToDisplay('%')">%</button>
+            <button class="btn-operator" onclick="appendToDisplay('±')">±</button>
+            <button class="btn-operator" onclick="appendToDisplay('/')">/</button>
+            <button class="btn-number" onclick="appendToDisplay('7')">7</button>
+             <button class="btn-number" onclick="appendToDisplay('8')">8</button>
+            <button class="btn-number" onclick="appendToDisplay('9')">9</button>
+            <button class="btn-operator" onclick="appendToDisplay('*')">*</button>
+            <button class="btn-number" onclick="appendToDisplay('4')">4</button>
+            <button class="btn-number" onclick="appendToDisplay('5')">5</button>
+            <button class="btn-number" onclick="appendToDisplay('6')">6</button>
+            <button class="btn-operator" onclick="appendToDisplay('-')">-</button>
+            <button class="btn-number" onclick="appendToDisplay('1')">1</button>
+            <button class="btn-number" onclick="appendToDisplay('2')">2</button>
+            <button class="btn-number" onclick="appendToDisplay('3')">3</button>
+            <button class="btn-operator" onclick="appendToDisplay('+')">+</button>
+            <button class="btn-number btn-zero" onclick="appendToDisplay('0')">0</button>
+            <button class="btn-number" onclick="appendToDisplay('.')">.</button>
+            <button class="btn-equals" onclick="calculate('=')">=</button>
+            
+        </div>
+    </div>
+
+<script>
+    let currentExpression = '';
+    let justCalculated = false; 
+
+    function appendToDisplay(value) {
+        if (justCalculated) {
+        currentExpression = '';
+        justCalculated = false;
+    }
+    currentExpression += value;
+    document.getElementById('result').textContent = currentExpression;
+}
+
+    function calculate() {
+        const expressionEl = document.getElementById('expression');
+        const resultEl = document.getElementById('result');
+        const answer = eval(currentExpression);
+        expressionEl.textContent = currentExpression + ' =';  
+        resultEl.textContent = answer;                        
+        currentExpression = String(answer);                   
+        justCalculated = true;                             
+}
+
+    function clearDisplay() {
+        currentExpression = '';
+        justCalculated = false;
+        document.getElementById('expression').textContent = '';
+        document.getElementById('result').textContent = '0';
+}
+
+</script>
+       
+</body>
+</html>
